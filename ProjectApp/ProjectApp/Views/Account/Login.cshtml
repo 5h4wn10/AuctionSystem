@@ -1,0 +1,25 @@
+﻿@model ProjectApp.Models.LoginVM
+
+<h2>Logga in</h2>
+
+<form asp-action="Login" method="post">
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <input asp-for="RememberMe" type="checkbox" />
+        <label asp-for="RememberMe">Kom ihåg mig</label>
+    </div>
+    <button type="submit">Logga in</button>
+</form>
+
+<div>
+    <a asp-action="Register">Registrera dig</a>
+</div>
