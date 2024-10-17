@@ -19,6 +19,7 @@ public class UserService : IUserService
     {
         // Använd CreateAsync för att registrera användaren
         var result = _userManager.CreateAsync(user, password);
+    
         // Logga felmeddelanden om användarskapandet misslyckas
         if (!result.Result.Succeeded)
         {
@@ -28,7 +29,7 @@ public class UserService : IUserService
             }
         }
     
-        // Returnera resultatet av registreringen
         return result.Result; // Observera att .Result blockerar tråden
     }
+
 }

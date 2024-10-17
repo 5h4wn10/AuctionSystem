@@ -23,6 +23,9 @@ builder.Services.AddDefaultIdentity<AppIdentityUser>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+
 
 var app = builder.Build();
 

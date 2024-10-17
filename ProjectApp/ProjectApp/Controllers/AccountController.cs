@@ -30,7 +30,7 @@ public class AccountController : Controller
             var result = _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false).Result; // Använd Result för synkront
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home"); // Redirecta till startsidan eller annan sida
+                return RedirectToAction("Index", "Auction"); // Redirecta till startsidan eller annan sida
             }
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
@@ -72,6 +72,7 @@ public class AccountController : Controller
 
         return View(model);
     }
+
 
 
     public IActionResult Logout()

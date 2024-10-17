@@ -5,8 +5,7 @@ namespace ProjectApp.ViewModels;
 
 public class CreateAuctionVM
 {
-    public class CreateAuctionViewModel
-    {
+    
         [Required(ErrorMessage = "Namnet på auktionen är obligatoriskt.")]
         [StringLength(100, ErrorMessage = "Namnet får inte vara längre än 100 tecken.")]
         public string Name { get; set; }
@@ -19,7 +18,7 @@ public class CreateAuctionVM
         public decimal StartingPrice { get; set; }
 
         [Required(ErrorMessage = "Slutdatum är obligatoriskt.")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.DateTime)] 
         public DateTime EndDate { get; set; }
-    }
+    
 }

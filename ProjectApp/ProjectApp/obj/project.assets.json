@@ -8778,11 +8778,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
+      "projectUniqueName": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\AuctionSystem\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
       "projectName": "ProjectApp",
-      "projectPath": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
+      "projectPath": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\AuctionSystem\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
       "packagesPath": "C:\\Users\\shans\\.nuget\\packages\\",
-      "outputPath": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\ProjectApp\\ProjectApp\\obj\\",
+      "outputPath": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\AuctionSystem\\ProjectApp\\ProjectApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\shans\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -8860,7 +8860,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\shans\\.dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

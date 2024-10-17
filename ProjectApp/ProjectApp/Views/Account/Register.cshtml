@@ -23,6 +23,17 @@
         <input asp-for="ConfirmPassword" type="password"/>
         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
     </div>
+
+    <div class="alert alert-warning">
+        <strong>Observera!</strong> Ditt lösenord måste uppfylla följande krav:
+        <ul>
+            <li>Minst 6 tecken långt</li>
+            <li>Innehålla minst en icke-alfanumerisk karaktär (t.ex. !, #, $)</li>
+            <li>Innehålla minst en siffra (0-9)</li>
+            <li>Innehålla minst en versal (A-Z)</li>
+        </ul>
+    </div>
+    
     <button type="submit">Registrera</button>
 </form>
 

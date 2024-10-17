@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3ExQ2CU9pRU=",
+  "dgSpecHash": "Bi8pi4r6KuU=",
   "success": true,
-  "projectFilePath": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
+  "projectFilePath": "C:\\Distribuerade informationsssytem\\Laboration 2 - ASP\\AuctionSystem\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\shans\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\shans\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
