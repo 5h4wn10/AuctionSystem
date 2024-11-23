@@ -69,10 +69,14 @@ public class AuctionRepository : IAuctionRepository
     public void PlaceBid(Bid bid)
     {
         var auction = _context.Auctions.Include(a => a.Bids).FirstOrDefault(a => a.Id == bid.AuctionId);
-        if (auction == null)
-        {
-            throw new ArgumentException("Auktionen finns inte.");
-        }
+        if (auction == null) throw new ArgumentException("Auktionen finns inte.");
+        
+        // Hämta det högsta budet
+        var highestBid = auction.Bids.OrderByDescending(b => b.Amount).FirstOrDefault(); 
+        // Kontrollera att budet är högre än startpriset (eller det nuvarande högsta budet)
+        if (bid.Amount <= auction.StartingPrice) throw new ArgumentException($"Budet måste vara högre än startpriset på {auction.StartingPrice}."); 
+        // Kontrollera att budet är högre än det högsta budet
+        if (bid.Amount <= (highestBid?.Amount ?? auction.StartingPrice)) throw new ArgumentException("Budet måste vara högre än det aktuella högsta budet.");
 
         auction.Bids.Add(bid); // Lägg till budet till auktionens Bids
         _context.SaveChanges(); // Spara ändringarna
@@ -93,6 +97,6 @@ public class AuctionRepository : IAuctionRepository
             throw new ArgumentException("Utgångspriset måste vara större än 0.");
         
         if (auction.EndDate <= DateTime.Now)
-            throw new ArgumentException("Slutdatum måste vara i framtiden.");
+            throw new ArgumentException("Slutdatum måste vara i framtiden.");   
     }
 }

@@ -173,7 +173,6 @@ public class AuctionController : Controller
         return View(model);
     }
 
-    // Action för att lägga ett bud
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult PlaceBid(int auctionId, decimal bidAmount)
@@ -203,7 +202,7 @@ public class AuctionController : Controller
         }
         catch (ArgumentException ex)
         {
-            ModelState.AddModelError("", ex.Message); // Lägg till felmeddelande om det inte är ett giltigt bud
+            ModelState.AddModelError("", ex.Message); // Visa felmeddelandet för användaren
             return RedirectToAction("Details", new { id = auctionId });
         }
     }
