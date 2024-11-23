@@ -1,0 +1,22 @@
+﻿@model ProjectApp.Models.EditAuctionVM
+
+@{
+ViewData["Title"] = "Edit Auction";
+}
+
+<h1>Edit Auction</h1>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<a asp-action="Index">Back to Your Auctions</a>

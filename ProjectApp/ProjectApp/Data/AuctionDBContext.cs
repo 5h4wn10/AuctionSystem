@@ -1,4 +1,5 @@
-﻿using ProjectApp.Models;
+using ProjectApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectApp.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -24,4 +25,6 @@ public class AuctionDBContext : IdentityDbContext
             .HasForeignKey(b => b.AuctionId)
             .OnDelete(DeleteBehavior.Cascade); // Om en auktion tas bort, tas också buden bort
     }
+
+public DbSet<ProjectApp.Models.EditAuctionVM> EditAuctionVM { get; set; } = default!;
 }

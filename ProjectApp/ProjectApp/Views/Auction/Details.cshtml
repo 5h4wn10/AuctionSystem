@@ -1,1 +1,35 @@
-﻿// Detaljerad vy för en auktion
+﻿@model ProjectApp.Models.DetailsVM
+
+<h1>@Model.Name</h1>
+<p>@Model.Description</p>
+<p>Starting Price: @Model.StartingPrice</p>
+<p>End Date: @Model.EndDate</p>
+
+<h3>Bids</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Amount</th>
+        <th>User</th>
+        <th>Bid Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var bid in Model.Bids.OrderByDescending(b => b.BidAmount))
+    {
+        <tr>
+            <td>@bid.BidAmount</td>
+            <td>@bid.UserId</td>
+            <td>@bid.BidTime</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<form method="post" asp-action="PlaceBid" asp-route-auctionId="@Model.Id">
+    <div class="form-group">
+        <label for="bidAmount">Your Bid Amount</label>
+        <input type="number" name="bidAmount" class="form-control" min="0.01" step="0.01" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Place Bid</button>
+</form>

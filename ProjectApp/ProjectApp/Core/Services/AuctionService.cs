@@ -44,17 +44,28 @@ public class AuctionRepository : IAuctionRepository
         _context.SaveChanges(); // Spara synkront
     }
 
-    public void UpdateAuctionDescription(int auctionId, string description)
+    
+    
+    public void EditAuctionDescription(int auctionId, string newDescription)
     {
         var auction = _context.Auctions.Find(auctionId);
-        if (auction != null)
+        if (auction == null)
         {
-            auction.Description = description;
+            throw new ArgumentException("Auktionen hittades inte.");
+        }
 
-            // Validera auktionen efter uppdatering av beskrivningen
-            ValidateAuction(auction);
-        
-            _context.SaveChanges(); // Spara synkront
+        /*if (auction.OwnerId != userId)
+        {
+            throw new UnauthorizedAccessException("Du har inte behörighet att ändra denna auktion.");
+        }*/
+
+        auction.Description = newDescription;
+
+        ValidateAuction(auction);
+        _context.SaveChanges(); // Spara synkront
+    }
+    
+    
         }
     }
     

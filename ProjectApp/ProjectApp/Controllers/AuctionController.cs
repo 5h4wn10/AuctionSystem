@@ -38,12 +38,11 @@ public class AuctionController : Controller
 
     public IActionResult Details(int id)
     {
-        var auction = _auctionService.GetAuctionDetails(id); // Anropa synkron metod
+        var auction = _auctionService.GetAuctionDetails(id); // Hämta auktionens detaljer
         if (auction == null)
         {
-            return NotFound(); // Returnera 404 om auktionen inte hittas
+            return NotFound(); // Returnera 404 om auktionen inte finns
         }
-        return View(auction);
     // Här är din ActiveAuctions Action Method
     public IActionResult ActiveAuctions()
     {
@@ -83,28 +82,13 @@ public class AuctionController : Controller
         return View(model);
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult UpdateDescription(int id, string description)
-    {
-        try 
-        {
-            _auctionService.UpdateAuctionDescription(id, description); // Anropa synkron metod
-            return RedirectToAction("Details", new { id });
-        } 
-        catch (ArgumentException ex) 
-        {
-            ModelState.AddModelError("Description", ex.Message); // Lägg till felmeddelande i ModelState
-            return RedirectToAction("Details", new { id }); // Returnera tillbaka till detaljer om det är ogiltigt
-        }
-    }
     
     
-    /*
+    
     [HttpGet]
     public IActionResult Edit(int id)
     {
-        var auction = _auctionService.Auctions.Find(id);
+        var auction = _auctionService.GetAuctionDetails(id);
         if (auction == null || auction.OwnerId != User.FindFirstValue(ClaimTypes.NameIdentifier))
         {
             return NotFound();
@@ -124,15 +108,26 @@ public class AuctionController : Controller
     {
         if (ModelState.IsValid)
         {
-            var auction = _auctionService.Auctions.Find(model.Id);
-            if (auction == null || auction.OwnerId != User.FindFirstValue(ClaimTypes.NameIdentifier))
+            try
             {
-                return NotFound();
+                // Flyttad logik till servicen
+                _auctionService.EditAuctionDescription(model.Id, model.Description);
+                return RedirectToAction("Details", new { id = model.Id });
             }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("Description", ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Forbid(); // Returnera 403 Forbidden om användaren inte har rättigheter
+            }
+        }
 
-            auction.Description = model.Description; // Update only the description
-            _auctionService.SaveChanges();
-            return RedirectToAction("Index");
+        return View(model);
+    }
+    
+    
         }
         return View(model);
     }*/
