@@ -66,12 +66,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Distribuerade informationsssytem/Laboration 2 - ASP/AuctionSystem/ProjectApp/ProjectApp/Views/Auction/ActiveAuctions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVjdGlvblxBY3RpdmVBdWN0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Distribuerade informationsssytem/Laboration 2 - ASP/AuctionSystem/ProjectApp/ProjectApp/Views/Auction/Bid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVjdGlvblxCaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Distribuerade informationsssytem/Laboration 2 - ASP/AuctionSystem/ProjectApp/ProjectApp/Views/Auction/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVjdGlvblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Distribuerade informationsssytem/Laboration 2 - ASP/AuctionSystem/ProjectApp/ProjectApp/Views/Auction/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVjdGlvblxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Distribuerade informationsssytem/Laboration 2 - ASP/AuctionSystem/ProjectApp/ProjectApp/Views/Auction/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVjdGlvblxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Distribuerade informationsssytem/Laboration 2 - ASP/AuctionSystem/ProjectApp/ProjectApp/Views/Auction/Index.cshtml]
