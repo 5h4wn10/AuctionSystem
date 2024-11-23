@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using ProjectApp.Models;
 using ProjectApp.Services;
 using ProjectApp.ViewModels;
@@ -11,10 +12,14 @@ public class AuctionController : Controller
 {
     private readonly IAuctionRepository _auctionService;
     private readonly ILogger<AuctionController> _logger;
+    private readonly UserManager<AppIdentityUser> _userManager; // Lägg till UserManager
 
-    public AuctionController(IAuctionRepository auctionService)
+
+    public AuctionController(IAuctionRepository auctionService, ILogger<AuctionController> logger, UserManager<AppIdentityUser> userManager)
     {
         _auctionService = auctionService;
+        _logger = logger;
+        _userManager = userManager;
     }
 
     /*public IActionResult Index()
@@ -43,6 +48,28 @@ public class AuctionController : Controller
         {
             return NotFound(); // Returnera 404 om auktionen inte finns
         }
+
+        var model = new DetailsVM()
+        {
+            Id = auction.Id,
+            Name = auction.Name,
+            Description = auction.Description,
+            OwnerId = auction.OwnerId,
+            OwnerName = _userManager.FindByIdAsync(auction.OwnerId).Result.UserName, // Hämta användarnamnet för OwnerId
+            StartingPrice = auction.StartingPrice,
+            EndDate = auction.EndDate,
+            Bids = auction.Bids.Select(b => new BidVM
+            {
+                BidAmount = b.Amount,
+                UserId = b.UserId,
+                BidTime = b.BidTime
+            }).ToList()
+        };
+
+        return View(model);
+    }
+    
+    
     // Här är din ActiveAuctions Action Method
     public IActionResult ActiveAuctions()
     {
@@ -128,8 +155,58 @@ public class AuctionController : Controller
     }
     
     
+    [HttpGet]
+    public IActionResult Bid(int id)
+    {
+        var auction = _auctionService.GetAuctionDetails(id);
+        if (auction == null)
+        {
+            return NotFound();
         }
+
+        // Skapa ett nytt bud
+        var model = new BidVM
+        {
+            AuctionId = auction.Id,
+        };
+
         return View(model);
-    }*/
+    }
+
+    // Action för att lägga ett bud
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult PlaceBid(int auctionId, decimal bidAmount)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (bidAmount <= 0)
+        {
+            ModelState.AddModelError("", "Budet måste vara ett positivt belopp.");
+            return RedirectToAction("Details", new { id = auctionId });
+        }
+
+        try
+        {
+            var bid = new Bid
+            {
+                AuctionId = auctionId,
+                Amount = bidAmount,
+                UserId = userId,
+                BidTime = DateTime.Now
+            };
+
+            // Skicka budet till service för att hantera det
+            _auctionService.PlaceBid(bid);
+
+            return RedirectToAction("Details", new { id = auctionId });
+        }
+        catch (ArgumentException ex)
+        {
+            ModelState.AddModelError("", ex.Message); // Lägg till felmeddelande om det inte är ett giltigt bud
+            return RedirectToAction("Details", new { id = auctionId });
+        }
+    }
+
 
 }

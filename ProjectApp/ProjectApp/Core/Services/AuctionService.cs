@@ -66,8 +66,18 @@ public class AuctionRepository : IAuctionRepository
     }
     
     
+    public void PlaceBid(Bid bid)
+    {
+        var auction = _context.Auctions.Include(a => a.Bids).FirstOrDefault(a => a.Id == bid.AuctionId);
+        if (auction == null)
+        {
+            throw new ArgumentException("Auktionen finns inte.");
         }
+
+        auction.Bids.Add(bid); // Lägg till budet till auktionens Bids
+        _context.SaveChanges(); // Spara ändringarna
     }
+
     
     
     

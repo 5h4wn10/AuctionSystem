@@ -1,0 +1,21 @@
+﻿@model ProjectApp.Models.BidVM
+
+@{
+    ViewData["Title"] = "Place Bid";
+}
+
+<h1>Place a Bid on Auction @Model.AuctionId</h1>
+
+<form asp-action="PlaceBid" method="post">
+    <div class="form-group">
+        <label for="BidAmount">Your Bid Amount:</label>
+        <input type="number" asp-for="BidAmount" class="form-control" step="0.01" min="0" />
+        <span asp-validation-for="BidAmount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="hidden" asp-for="AuctionId" />
+        <button type="submit" class="btn btn-primary">Place Bid</button>
+    </div>
+</form>
+
+<a asp-action="Index">Back to Your Auctions</a> | <a asp-action="ActiveAuctions">See All Active Auctions</a>
