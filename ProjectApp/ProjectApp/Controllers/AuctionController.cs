@@ -10,15 +10,24 @@ using Microsoft.AspNetCore.Mvc;
 public class AuctionController : Controller
 {
     private readonly IAuctionRepository _auctionService;
+    private readonly ILogger<AuctionController> _logger;
 
     public AuctionController(IAuctionRepository auctionService)
     {
         _auctionService = auctionService;
     }
 
-    public IActionResult Index()
+    /*public IActionResult Index()
     {
         var auctions = _auctionService.GetActiveAuctions(); // Anropa synkron metod
+        return View(auctions);
+    }*/
+    
+    public IActionResult Index()
+    {
+        // Hämta endast auktioner som tillhör den inloggade användaren
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var auctions = _auctionService.GetAuctionsByUser(userId); // Ny metod som hämtar auktioner baserat på userId
         return View(auctions);
     }
     
@@ -35,6 +44,22 @@ public class AuctionController : Controller
             return NotFound(); // Returnera 404 om auktionen inte hittas
         }
         return View(auction);
+    // Här är din ActiveAuctions Action Method
+    public IActionResult ActiveAuctions()
+    {
+        var activeAuctions = _auctionService.GetActiveAuctions(); // Hämta alla aktiva auktioner
+        var viewModel = activeAuctions.Select(a => new ActiveAuctionVM
+        {
+            Id = a.Id,
+            Name = a.Name,
+            Description = a.Description,
+            StartingPrice = a.StartingPrice,
+            EndDate = a.EndDate,
+            OwnerId = a.OwnerId,
+            OwnerName = _userManager.FindByIdAsync(a.OwnerId).Result.UserName // Hämta användarnamnet för OwnerId
+        }).ToList(); // Skapa en lista av ActiveAuctionVM
+
+        return View(viewModel);  // Returnera vy med auktionerna
     }
 
     [HttpPost]

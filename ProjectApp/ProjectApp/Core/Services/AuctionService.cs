@@ -20,6 +20,14 @@ public class AuctionRepository : IAuctionRepository
             .OrderBy(a => a.EndDate)
             .ToList();
     }
+    
+    public List<Auction> GetAuctionsByUser(string userId)
+    {
+        return _context.Auctions
+            .Where(a => a.OwnerId == userId && a.EndDate > DateTime.Now) // Endast pågående auktioner
+            .OrderBy(a => a.EndDate) // Sortera efter slutdatum
+            .ToList();
+    }
 
     public Auction GetAuctionDetails(int auctionId)
     {
@@ -27,6 +35,7 @@ public class AuctionRepository : IAuctionRepository
             .Include(a => a.Bids) // Om du vill inkludera buden i detaljerna
             .FirstOrDefault(a => a.Id == auctionId);
     }
+    
 
     public void CreateAuction(Auction auction)
     {
