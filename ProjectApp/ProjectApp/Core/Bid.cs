@@ -8,4 +8,5 @@ public class Bid
     public DateTime BidTime { get; set; }
     public int AuctionId { get; set; }
     public Auction Auction { get; set; }
+    
 }

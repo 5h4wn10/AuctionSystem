@@ -1,21 +1,21 @@
 ﻿namespace ProjectApp.Models;
 
-public class DetailsVM
+public class AuctionVM
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
+    public string OwnerId { get; set; }
+    public string OwnerName { get; set; }
+    
     public decimal StartingPrice { get; set; }
     public DateTime EndDate { get; set; }
+    public int Id { get; set; }
     public List<BidVM> Bids { get; set; }
-    public string OwnerId { get; set; }
-    public string OwnerName { get; set; } // Lägg till fält för användarnamn
-
     
-    // Factory-metod för att skapa DetailsVM från en Auction-entitet
-    public static DetailsVM FromAuction(Auction auction, string ownerName)
+    // Lägg till FromAuction-metoden
+    public static AuctionVM FromAuction(Auction auction, string ownerName)
     {
-        return new DetailsVM
+        return new AuctionVM
         {
             Id = auction.Id,
             Name = auction.Name,
@@ -24,12 +24,12 @@ public class DetailsVM
             OwnerName = ownerName,
             StartingPrice = auction.StartingPrice,
             EndDate = auction.EndDate,
-            Bids = auction.Bids.Select(b => new BidVM
+            Bids = auction.Bids?.Select(b => new BidVM
             {
                 BidAmount = b.Amount,
                 UserId = b.UserId,
                 BidTime = b.BidTime
-            }).ToList()
+            }).ToList() ?? new List<BidVM>()
         };
     }
 }

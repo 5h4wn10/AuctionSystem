@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ProjectApp.Models;
 
 
 namespace ProjectApp.ViewModels;
@@ -20,5 +21,18 @@ public class CreateAuctionVM
         [Required(ErrorMessage = "Slutdatum är obligatoriskt.")]
         [DataType(DataType.DateTime)] 
         public DateTime EndDate { get; set; }
+        
+        
+        public Auction ToAuction(string ownerId)
+        {
+                return new Auction
+                {
+                        Name = Name,
+                        Description = Description,
+                        StartingPrice = StartingPrice,
+                        EndDate = EndDate,
+                        OwnerId = ownerId
+                };
+        }
     
 }

@@ -32,7 +32,7 @@ public class AuctionRepository : IAuctionRepository
     public Auction GetAuctionDetails(int auctionId)
     {
         return _context.Auctions
-            .Include(a => a.Bids) // Om du vill inkludera buden i detaljerna
+            .Include(a => a.Bids) // Inkludera endast tillgängliga kolumner
             .FirstOrDefault(a => a.Id == auctionId);
     }
     
@@ -69,10 +69,18 @@ public class AuctionRepository : IAuctionRepository
     public void PlaceBid(Bid bid)
     {
         var auction = _context.Auctions.Include(a => a.Bids).FirstOrDefault(a => a.Id == bid.AuctionId);
-        if (auction == null)
-        {
-            throw new ArgumentException("Auktionen finns inte.");
-        }
+        if (auction == null) throw new ArgumentException("Auktionen finns inte.");
+        if (auction.OwnerId == bid.UserId) 
+            throw new UnauthorizedAccessException("Du kan inte lägga bud på din egen auktion.");
+        
+        // Hämta det högsta budet
+        var highestBid = auction.Bids.OrderByDescending(b => b.Amount).FirstOrDefault(); 
+        // Kontrollera att budet är högre än startpriset (eller det nuvarande högsta budet)
+        if (bid.Amount <= auction.StartingPrice) 
+            throw new ArgumentException($"Budet måste vara högre än startpriset på {auction.StartingPrice}."); 
+        // Kontrollera att budet är högre än det högsta budet
+        if (bid.Amount <= (highestBid?.Amount ?? auction.StartingPrice)) 
+            throw new ArgumentException("Budet måste vara högre än det aktuella högsta budet.");
 
         auction.Bids.Add(bid); // Lägg till budet till auktionens Bids
         _context.SaveChanges(); // Spara ändringarna
@@ -93,6 +101,6 @@ public class AuctionRepository : IAuctionRepository
             throw new ArgumentException("Utgångspriset måste vara större än 0.");
         
         if (auction.EndDate <= DateTime.Now)
-            throw new ArgumentException("Slutdatum måste vara i framtiden.");
+            throw new ArgumentException("Slutdatum måste vara i framtiden.");   
     }
 }

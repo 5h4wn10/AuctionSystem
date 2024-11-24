@@ -26,7 +26,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 
-
 var app = builder.Build();
 
 // Konfigurera HTTP-förfrågningspipeline
