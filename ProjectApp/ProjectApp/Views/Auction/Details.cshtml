@@ -25,7 +25,7 @@ ViewData["Title"] = "Auction Details";
     {
     <tr>
         <td>@bid.BidAmount</td>
-        <td>@bid.OwnerId</td>
+        <td>@bid.Username</td>
         <td>@bid.BidTime</td>
     </tr>
     }
@@ -38,4 +38,4 @@ ViewData["Title"] = "Auction Details";
 
 
 
-<a asp-action="Index">Back to Your Auctions</a>   |  <a asp-action="ActiveAuctions">View All Active Auctions</a>
+<a asp-action="Index">Back to Homepage</a>   |  <a asp-action="ActiveAuctions">View All Active Auctions</a>

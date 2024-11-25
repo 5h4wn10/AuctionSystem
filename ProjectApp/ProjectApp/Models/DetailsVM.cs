@@ -1,4 +1,6 @@
-﻿namespace ProjectApp.Models;
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ProjectApp.Models;
 
 public class DetailsVM
 {
@@ -13,7 +15,7 @@ public class DetailsVM
 
     
     // Factory-metod för att skapa DetailsVM från en Auction-entitet
-    public static DetailsVM FromAuction(Auction auction, string ownerName)
+    public static DetailsVM FromAuction(Auction auction, string ownerName, UserManager<AppIdentityUser> userManager)
     {
         return new DetailsVM
         {
@@ -28,6 +30,7 @@ public class DetailsVM
             {
                 BidAmount = b.Amount,
                 UserId = b.UserId,
+                Username = userManager.FindByIdAsync(b.UserId).Result.UserName, // Hämta användarnamn
                 BidTime = b.BidTime
             }).ToList()
         };

@@ -13,5 +13,11 @@ public interface IAuctionRepository
 
     void PlaceBid(Bid bid);
 
+    List<Auction> GetCompletedAuctionsWonByUser(string userId);
+
+
+    List<Auction> GetOngoingAuctionsWithUserBids(string userId);
+
+
 
 }

@@ -1,11 +1,11 @@
-﻿@using System.Runtime.InteropServices.JavaScript
-@model IEnumerable<ProjectApp.ViewModels.ActiveAuctionVM>
+﻿@model IEnumerable<ProjectApp.Models.AuctionVM>
 
 @{
-ViewData["Title"] = "Active Auctions";
+ViewData["Title"] = "Your Bidded Auctions";
 }
 
-<h1>Active Auctions</h1>
+<h1>Your Bidded Auctions</h1>
+
 
 <table class="table">
     <thead>
@@ -14,7 +14,6 @@ ViewData["Title"] = "Active Auctions";
         <th>@Html.DisplayNameFor(model => model.Description)</th>
         <th>@Html.DisplayNameFor(model => model.StartingPrice)</th>
         <th>@Html.DisplayNameFor(model => model.EndDate)</th>
-        <th>@Html.DisplayNameFor(model => model.OwnerName)</th> <!-- Lägg till kolumn för OwnerName -->
         <th></th>
     </tr>
     </thead>
@@ -25,16 +24,13 @@ ViewData["Title"] = "Active Auctions";
         <td>@Html.DisplayFor(modelItem => item.Name)</td>
         <td>@Html.DisplayFor(modelItem => item.Description)</td>
         <td>@Html.DisplayFor(modelItem => item.StartingPrice)</td>
-        <td>@Html.DisplayFor(modelItem => item.EndDate )</td>
-        <td>@Html.DisplayFor(modelItem => item.OwnerName)</td> <!-- Visa OwnerName -->
+        <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
         <td>
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-            |
-            <a asp-action="Bid" asp-route-id="@item.Id">Put Bid</a>
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
         </td>
     </tr>
     }
     </tbody>
 </table>
 
-<a asp-action="Index">Back to Your Auctions</a>
+<a asp-action="Index">Go Back to HomePage</a> 

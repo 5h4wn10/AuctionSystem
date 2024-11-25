@@ -85,6 +85,25 @@ public class AuctionRepository : IAuctionRepository
         auction.Bids.Add(bid); // Lägg till budet till auktionens Bids
         _context.SaveChanges(); // Spara ändringarna
     }
+    
+    
+    public List<Auction> GetOngoingAuctionsWithUserBids(string userId)
+    {
+        return _context.Auctions
+            .Include(a => a.Bids) // Inkludera buden
+            .Where(a => a.EndDate > DateTime.Now && a.Bids.Any(b => b.UserId == userId)) // Pågående och användaren har lagt bud
+            .OrderBy(a => a.EndDate) // Sortera efter slutdatum
+            .ToList();
+    }
+    
+    public List<Auction> GetCompletedAuctionsWonByUser(string userId)
+    {
+        return _context.Auctions
+            .Include(a => a.Bids) // Inkludera bud
+            .Where(a => a.EndDate <= DateTime.Now && a.Bids.Any(b => b.UserId == userId && b.Amount == a.Bids.Max(bid => bid.Amount))) // Auktion är avslutad och användaren har det högsta budet
+            .OrderByDescending(a => a.EndDate) // Sortera efter slutdatum
+            .ToList();
+    }
 
     
     

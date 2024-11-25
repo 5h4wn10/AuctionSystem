@@ -38,4 +38,15 @@ ViewData["Title"] = "Your Auctions";
     </tbody>
 </table>
 
-<a asp-action="ActiveAuctions">View All Active Auctions</a>
+<p>
+     <a asp-action="ActiveAuctions">View All Active Auctions</a>
+</p>
+                  
+<p>
+    <a asp-controller="Auction" asp-action="OngoingAuctionsWithBids"> Show all of Your Bidded Auctions</a>
+</p>
+
+<p>
+    <a asp-controller="Auction" asp-action="CompletedAuctionsWon"> Show all of Your Won Auctions</a>
+</p>
+

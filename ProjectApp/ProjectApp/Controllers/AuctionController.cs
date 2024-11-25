@@ -52,7 +52,7 @@ public class AuctionController : Controller
         if (auction == null) return NotFound();
 
         var ownerName = _userManager.FindByIdAsync(auction.OwnerId).Result.UserName;
-        var viewModel = DetailsVM.FromAuction(auction, ownerName);
+        var viewModel = DetailsVM.FromAuction(auction, ownerName, _userManager); // Lägg till _userManager
         return View(viewModel);
     }
 
@@ -148,4 +148,35 @@ public class AuctionController : Controller
             return RedirectToAction("Details", new { id = auctionId });
         }
     }
+    
+    
+    public IActionResult OngoingAuctionsWithBids()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var auctions = _auctionService.GetOngoingAuctionsWithUserBids(userId);
+
+        var viewModels = auctions.Select(a =>
+        {
+            var ownerName = _userManager.FindByIdAsync(a.OwnerId).Result.UserName;
+            return AuctionVM.FromAuction(a, ownerName);
+        }).ToList();
+
+        return View(viewModels); // Skapa en vy som listar dessa auktioner
+    }
+    
+    
+    public IActionResult CompletedAuctionsWon()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var auctions = _auctionService.GetCompletedAuctionsWonByUser(userId);
+
+        var viewModels = auctions.Select(a =>
+        {
+            var ownerName = _userManager.FindByIdAsync(a.OwnerId).Result.UserName;
+            return AuctionVM.FromAuction(a, ownerName);
+        }).ToList();
+
+        return View(viewModels); // Skapa en vy som listar dessa auktioner
+    }
+
 }
