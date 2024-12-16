@@ -21,7 +21,7 @@ builder.Services.AddDefaultIdentity<AppIdentityUser>(options =>
 
 // Lägg till MVC och kontroller
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();

@@ -6,7 +6,7 @@ namespace ProjectApp.Services;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-public interface IUserService
+public interface IUserRepository
 {
     IdentityResult RegisterUser(AppIdentityUser user, string password);
 }

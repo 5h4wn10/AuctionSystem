@@ -115,6 +115,8 @@ public class AuctionController : Controller
 
         return View(model);
     }
+    
+    
     public IActionResult Bid(int id)
     {
         var auction = _auctionService.GetAuctionDetails(id);

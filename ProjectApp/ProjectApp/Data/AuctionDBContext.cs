@@ -26,5 +26,4 @@ public class AuctionDBContext : IdentityDbContext
             .OnDelete(DeleteBehavior.Cascade); // Om en auktion tas bort, tas också buden bort
     }
 
-public DbSet<ProjectApp.Models.EditAuctionVM> EditAuctionVM { get; set; } = default!;
 }

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 public class AccountController : Controller
 {
     private readonly SignInManager<AppIdentityUser> _signInManager;
-    private readonly IUserService _userService;
+    private readonly IUserRepository _userRepository;
 
-    public AccountController(SignInManager<AppIdentityUser> signInManager, IUserService userService)
+    public AccountController(SignInManager<AppIdentityUser> signInManager, IUserRepository userRepository)
     {
         _signInManager = signInManager;
-        _userService = userService;
+        _userRepository = userRepository;
     }
 
     // Inloggningsmetod
@@ -55,7 +55,7 @@ public class AccountController : Controller
                 Email = model.Email 
             };
 
-            var result = _userService.RegisterUser(user, model.Password);
+            var result = _userRepository.RegisterUser(user, model.Password);
         
             Console.WriteLine($"Register result: {result.Succeeded}"); // Loggar resultatet
 

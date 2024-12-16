@@ -6,11 +6,11 @@ namespace ProjectApp.Services;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-public class UserService : IUserService
+public class UserRepository : IUserRepository
 {
     private readonly UserManager<AppIdentityUser> _userManager;
 
-    public UserService(UserManager<AppIdentityUser> userManager)
+    public UserRepository(UserManager<AppIdentityUser> userManager)
     {
         _userManager = userManager;
     }
