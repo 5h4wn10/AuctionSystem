@@ -1,3 +1,5 @@
 
 *.exe
 *.dll
+*.dll
+ProjectApp/ProjectApp/bin/Debug/net8.0/ProjectApp.exe
